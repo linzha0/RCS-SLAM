@@ -49,10 +49,12 @@ int main(const int argc, const char *argv[]) {
   	folder = "Current";
   }
 
-  string g2oFile = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppgraph.csv";
-  string Out1 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/DR_IneqOut.csv"; 
+  //! LIN:
+  std::string path = "/home/lin/develop/ros/soslab_ws/src/slam/RCS-SLAM/ajh_swarm_slam/optimization/Data/";
 
-  string Out2 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/DR_LC_IneqOut.csv"; 
+  string g2oFile = path + folder + "/cppgraph.csv";
+  string Out1 = path + folder + "/DR_IneqOut.csv"; 
+  string Out2 = path + folder + "/DR_LC_IneqOut.csv"; 
 
 
   // reading file and creating factor graph
@@ -120,9 +122,9 @@ int main(const int argc, const char *argv[]) {
   fstream LCin;
   
 
-  Commin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppcomm.csv", ios::in);
+  Commin.open(path + folder + "/cppcomm.csv", ios::in);
   
-  LCin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/loopclosure.csv", ios::in);
+  LCin.open(path + folder + "/loopclosure.csv", ios::in);
   
   vector<string> row;
   string line, word, temp;
@@ -221,9 +223,9 @@ int main(const int argc, const char *argv[]) {
   std::cout << "Optimization complete" << std::endl;
 
   
-
-  result1.print("result");
-  result2.print("result");
+  //! LIN:
+  // result1.print("result");
+  // result2.print("result");
   
   const string outputFile1 = Out1;
   const string outputFile2 = Out2;

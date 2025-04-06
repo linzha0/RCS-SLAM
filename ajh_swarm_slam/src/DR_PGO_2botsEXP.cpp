@@ -55,14 +55,16 @@ int main(const int argc, const char *argv[]) {
   	folder = "Current";
   }
 
-  string g2oFile = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppgraph.csv";
-  string Out1 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/DR_IneqOut.csv"; 
+  //! LIN:
+  std::string path = "/home/lin/develop/ros/soslab_ws/src/slam/RCS-SLAM/ajh_swarm_slam/optimization/Data/";
 
-  string Out2 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/DR_LC_IneqOut.csv"; 
+  string g2oFile = path + folder + "/cppgraph.csv";
+  string Out1 = path + folder + "/DR_IneqOut.csv"; 
+  string Out2 = path + folder + "/DR_LC_IneqOut.csv"; 
 
   std::ifstream file(g2oFile);
   if (!file.is_open()) {
-  	std::cerr << "Fehler beim Öffnen der Datei!" << std::endl;
+  	std::cerr << "Error opening file!" << std::endl;
         return 1;
   }
   
@@ -74,29 +76,34 @@ int main(const int argc, const char *argv[]) {
         std::vector<std::string> tokens;
         std::string token;
 
-        while (iss >> token) {  // Liest die Zeile in einzelne Strings ein (getrennt durch Leerzeichen)
+        while (iss >> token) {  // Reads the line into individual strings (separated by spaces)
             tokens.push_back(token);
         }
 
-        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "1000") {  // Prüft, ob es eine gültige Zeile ist
+        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "1000") {  // Checks if it is a valid line
             double x = std::stod(tokens[tokens.size() - 3]);
             double y = std::stod(tokens[tokens.size() - 2]);
             double theta = std::stod(tokens[tokens.size() - 1]);
 
             poses.push_back({x, y, theta});
+            printf("get from grahp: 1000\n");
         }
         
-        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "2000") {  // Prüft, ob es eine gültige Zeile ist
+        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "2000") {  // Checks if it is a valid line
             double x = std::stod(tokens[tokens.size() - 3]);
             double y = std::stod(tokens[tokens.size() - 2]);
             double theta = std::stod(tokens[tokens.size() - 1]);
 
             poses.push_back({x, y, theta});
+            printf("get from grahp: 2000\n");
         }
     }
 
     file.close();
-  
+
+  //! LIN:
+  //!   only one pose added, which is 2000
+
   // reading file and creating factor graph
   NonlinearFactorGraph::shared_ptr graph1;
   NonlinearFactorGraph::shared_ptr graph2;
@@ -107,7 +114,22 @@ int main(const int argc, const char *argv[]) {
   std::tie(graph1, initial1) = readG2o(g2oFile, is3D);
   std::tie(graph2, initial2) = readG2o(g2oFile, is3D);
 
- 
+  //! LIN: loop all the pose
+  // for (const auto& key_value : *initial1) {  // Dereferencing shared_ptr
+  //     gtsam::Key key = key_value.key;  // Extract the key
+  //     const gtsam::Value& value = key_value.value;  // Extract the value
+
+  //     // Attempt to cast the value to a known type (e.g., Pose2)
+  //     if (initial1->exists(key)) {
+  //         try {
+  //             Pose2 pose2 = initial1->at<Pose2>(key);
+  //             std::cout << "Key: " << key << ", Value: (" << pose2.x() << ", " << pose2.y()<< ", " << pose2.theta() << ")\n";
+  //         } catch (const std::exception& e) {
+  //             std::cerr << "Error casting value at key " << key << ": " << e.what() << std::endl;
+  //         }
+  //     }
+  // }
+
   // Add prior on the pose having index (key) = 1000
   auto priorModel =  //
       noiseModel::Diagonal::Sigmas(Vector3(.001, .001, .005));
@@ -164,9 +186,9 @@ int main(const int argc, const char *argv[]) {
   fstream LCin;
   
 
-  Commin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppcomm.csv", ios::in);
+  Commin.open(path + folder + "/cppcomm.csv", ios::in);
   
-  LCin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/loopclosure.csv", ios::in);
+  LCin.open(path + folder + "/loopclosure.csv", ios::in);
   
   vector<string> row;
   string line, word, temp;
@@ -206,6 +228,9 @@ int main(const int argc, const char *argv[]) {
     double delta_y2 = k1_2.y() - k2_2.y();
     double range2 = (sqrt(pow(delta_x2,2) + pow(delta_y2,2)));
     
+    //! LIN:
+    // printf("range1:%f, range2:%f\n", range1, range2);
+
     graph1->add(RangeFactor<Pose2, Pose2>(key1,key2, rng, commmodel));
     
     graph2->add(RangeFactor<Pose2, Pose2>(key1,key2, rng, commmodel));
@@ -246,7 +271,9 @@ int main(const int argc, const char *argv[]) {
     double delta_x = k1.x() - k2.x();
     double delta_y = k1.y() - k2.y();
     double range = (sqrt(pow(delta_x,2) + pow(delta_y,2))); 
-    
+    //! LIN:
+    // printf("range:%f\n", range);
+
     double x = k2.x();
     double y = k2.y();
     

@@ -1,0 +1,132 @@
+Factor Graph:
+size: 18
+
+Factor 0: PriorFactor on 1000
+  prior mean: (0, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 1: BetweenFactor(1000,1001)
+  measured: (0.5, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 2: BetweenFactor(1001,1002)
+  measured: (0.5, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 3: BetweenFactor(1002,1003)
+  measured: (0.5, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 4: BetweenFactor(1003,1004)
+  measured: (0.5, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 5: BetweenFactor(1004,1005)
+  measured: (0.5, 0, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 6: PriorFactor on 2000
+  prior mean: (0, 0.8, 0)
+  noise model: diagonal sigmas[0.01; 0.01; 0.005];
+
+Factor 7: BetweenFactor(2000,2001)
+  measured: (0.5, 0.4, 0)
+  noise model: diagonal sigmas[0.01; 0.3; 0.005];
+
+Factor 8: BetweenFactor(2001,2002)
+  measured: (0.5, -0.1, 0)
+  noise model: diagonal sigmas[0.01; 0.3; 0.005];
+
+Factor 9: BetweenFactor(2002,2003)
+  measured: (0.5, -0.2, 0)
+  noise model: diagonal sigmas[0.01; 0.3; 0.005];
+
+Factor 10: BetweenFactor(2003,2004)
+  measured: (0.5, 0.2, 0)
+  noise model: diagonal sigmas[0.01; 0.3; 0.005];
+
+Factor 11: BetweenFactor(2004,2005)
+  measured: (0.5, 0.1, 0)
+  noise model: diagonal sigmas[0.01; 0.3; 0.005];
+
+Factor 12: DirectCommFactor, direct comm constraint = 1
+  keys = { 1000 2000 }
+isotropic dim=1 sigma=0.3
+
+Factor 13: DirectCommFactor, direct comm constraint = 1
+  keys = { 1001 2001 }
+isotropic dim=1 sigma=0.3
+
+Factor 14: DirectCommFactor, direct comm constraint = 1
+  keys = { 1002 2002 }
+isotropic dim=1 sigma=0.3
+
+Factor 15: DirectCommFactor, direct comm constraint = 1
+  keys = { 1003 2003 }
+isotropic dim=1 sigma=0.3
+
+Factor 16: DirectCommFactor, direct comm constraint = 1
+  keys = { 1004 2004 }
+isotropic dim=1 sigma=0.3
+
+Factor 17: DirectCommFactor, direct comm constraint = 1
+  keys = { 1005 2005 }
+isotropic dim=1 sigma=0.3
+
+
+Initial Estimate:
+Values with 12 values:
+Value 1000: (gtsam::Pose2) (0, 0, 0)
+
+Value 1001: (gtsam::Pose2) (0.5, 0, 0)
+
+Value 1002: (gtsam::Pose2) (1, 0, 0)
+
+Value 1003: (gtsam::Pose2) (1.5, 0, 0)
+
+Value 1004: (gtsam::Pose2) (2, 0, 0)
+
+Value 1005: (gtsam::Pose2) (2.5, 0, 0)
+
+Value 2000: (gtsam::Pose2) (0, 0.8, 0)
+
+Value 2001: (gtsam::Pose2) (0.5, 1.2, 0)
+
+Value 2002: (gtsam::Pose2) (1, 1.1, 0)
+
+Value 2003: (gtsam::Pose2) (1.5, 0.9, 0)
+
+Value 2004: (gtsam::Pose2) (2, 1.1, 0)
+
+Value 2005: (gtsam::Pose2) (2.5, 1.2, 0)
+
+converged
+errorThreshold: 0.120951038 <? 0
+absoluteDecrease: 2.99395785941e-11 <? 1e-05
+relativeDecrease: 2.47534697312e-10 <? 1e-05
+iterations: 3 >? 100
+Final Result:
+Values with 12 values:
+Value 1000: (gtsam::Pose2) (-3.76193177197e-09, 0.000120951038088, 2.51743776678e-05)
+
+Value 1001: (gtsam::Pose2) (0.499999993534, 0.000254489265038, 3.52298755269e-05)
+
+Value 1002: (gtsam::Pose2) (0.999999992492, 0.000292215198498, 4.27714989213e-05)
+
+Value 1003: (gtsam::Pose2) (1.49999999125, 0.00033371194365, 4.77992478508e-05)
+
+Value 1004: (gtsam::Pose2) (1.99999998985, 0.000377722563262, 5.03131223154e-05)
+
+Value 1005: (gtsam::Pose2) (2.49999998833, 0.000422990120103, 5.03131223154e-05)
+
+Value 2000: (gtsam::Pose2) (-5.36692137357e-09, 0.799879048962, -2.51742240991e-05)
+
+Value 2001: (gtsam::Pose2) (0.500007322695, 1.09101052743, -3.52297387462e-05)
+
+Value 2002: (gtsam::Pose2) (1.00000316148, 0.972893016494, -4.27713664375e-05)
+
+Value 2003: (gtsam::Pose2) (1.49999383241, 0.754771734869, -4.77991044795e-05)
+
+Value 2004: (gtsam::Pose2) (2.00000252637, 0.936647938967, -5.03129763281e-05)
+
+Value 2005: (gtsam::Pose2) (2.50000664625, 1.01852288623, -5.03129763281e-05)

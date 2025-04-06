@@ -61,17 +61,19 @@ int main(const int argc, const char *argv[]) {
     folder = "Current";
   }
 
-std::cout << "Adding priors " << std::endl;
+  //! LIN:
+  std::string path = "/home/lin/develop/ros/soslab_ws/src/slam/RCS-SLAM/ajh_swarm_slam/optimization/Data/";
 
-  string g2oFile = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppgraph.csv";
-  string Out1 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/RCS_IneqOut.csv"; 
+  std::cout << "Adding priors " << std::endl;
 
-  string Out2 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/RCS_LC_IneqOut.csv"; 
+  string g2oFile = path + folder + "/cppgraph.csv";
+  string Out1 = path + folder + "/RCS_IneqOut.csv"; 
+  string Out2 = path + folder + "/RCS_LC_IneqOut.csv"; 
 
 
   std::ifstream file(g2oFile);
   if (!file.is_open()) {
-  	std::cerr << "Fehler beim Öffnen der Datei!" << std::endl;
+  	std::cerr << "Error opening file!" << std::endl;
         return 1;
   }
   
@@ -83,22 +85,24 @@ std::cout << "Adding priors " << std::endl;
         std::vector<std::string> tokens;
         std::string token;
 
-        while (iss >> token) {  // Liest die Zeile in einzelne Strings ein (getrennt durch Leerzeichen)
+        while (iss >> token) {  // Reads the line into individual strings (separated by spaces)
             tokens.push_back(token);
         }
 
-        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "1000") {  // Prüft, ob es eine gültige Zeile ist
+        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "1000") {  // Checks if it is a valid line
             double x = std::stod(tokens[tokens.size() - 3]);
             double y = std::stod(tokens[tokens.size() - 2]);
             double theta = std::stod(tokens[tokens.size() - 1]);
+            printf("get from grahp: 1000\n");
 
             poses.push_back({x, y, theta});
         }
         
-        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "2000") {  // Prüft, ob es eine gültige Zeile ist
+        if (tokens.size() >= 4 && tokens[0] == "VERTEX_SE2" && tokens[1] == "2000") {  // Checks if it is a valid line
             double x = std::stod(tokens[tokens.size() - 3]);
             double y = std::stod(tokens[tokens.size() - 2]);
             double theta = std::stod(tokens[tokens.size() - 1]);
+            printf("get from grahp: 2000\n");
 
             poses.push_back({x, y, theta});
         }
@@ -118,7 +122,7 @@ std::cout << "Adding priors " << std::endl;
   if (!graph1 || !initial1) {
     std::cerr << "Failed to read G2O file into graph1 and initial1." << std::endl;
     return -1;
-}
+  }
 
   
   std::tie(graph2, initial2) = readG2o(g2oFile, is3D);
@@ -178,11 +182,11 @@ std::cout << "Adding priors " << std::endl;
   fstream LCin;
   
 
-  Commin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppcomm.csv", ios::in);
+  Commin.open(path + folder + "/cppcomm.csv", ios::in);
   
-  Hopin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/hopgraph.csv", ios::in);
+  Hopin.open(path + folder + "/hopgraph.csv", ios::in);
   
-  LCin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/loopclosure.csv", ios::in);
+  LCin.open(path + folder + "/loopclosure.csv", ios::in);
   
   vector<string> row;
   string line, word, temp;
@@ -224,12 +228,12 @@ std::cout << "A" << std::endl;
      
     if (range1 >= commdist) {
     
-   	graph1->add(RangeFactor<Pose2, Pose2>(key1,key2, commdist, commmodel));
+    	graph1->add(RangeFactor<Pose2, Pose2>(key1,key2, commdist, commmodel));
    	    	
     }
     if (range2 >= commdist) {
     
-	graph2->add(RangeFactor<Pose2, Pose2>(key1,key2, commdist, commmodel));
+	    graph2->add(RangeFactor<Pose2, Pose2>(key1,key2, commdist, commmodel));
     	    	
     }
 

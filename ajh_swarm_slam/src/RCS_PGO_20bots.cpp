@@ -56,10 +56,13 @@ int main(const int argc, const char *argv[]) {
 
 std::cout << "Adding priors " << std::endl;
 
-  string g2oFile = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppgraph.csv";
-  string Out1 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/RCS_IneqOut.csv"; 
+  //! LIN:
+  std::string path = "/home/lin/develop/ros/soslab_ws/src/slam/RCS-SLAM/ajh_swarm_slam/optimization/Data/";
 
-  string Out2 = "/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/RCS_LC_IneqOut.csv"; 
+  string g2oFile = path + folder + "/cppgraph.csv";
+  string Out1 = path + folder + "/RCS_IneqOut.csv"; 
+
+  string Out2 = path + folder + "/RCS_LC_IneqOut.csv"; 
 
 
   // reading file and creating factor graph
@@ -134,11 +137,11 @@ std::cout << "Adding priors " << std::endl;
   fstream LCin;
   
 
-  Commin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/cppcomm.csv", ios::in);
+  Commin.open(path + folder + "/cppcomm.csv", ios::in);
   
-  Hopin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/hopgraph.csv", ios::in);
+  Hopin.open(path + folder + "/hopgraph.csv", ios::in);
   
-  LCin.open("/home/robolab/catkin_ws/src/ajh_swarm_slam/optimization/Data/" + folder + "/loopclosure.csv", ios::in);
+  LCin.open(path + folder + "/loopclosure.csv", ios::in);
   
   vector<string> row;
   string line, word, temp;
@@ -249,7 +252,7 @@ std::cout << "A" << std::endl;
     
   }
   
-      std::cout << "C" << std::endl;
+      // std::cout << "C" << std::endl;
 
   
   while (getline(LCin,line)) {
@@ -260,36 +263,36 @@ std::cout << "A" << std::endl;
       row.push_back(word);
     }
           
-      std::cout << "C.1" << std::endl;
+      // std::cout << "C.1" << std::endl;
     Key key1 = stoi(row[0]);
     Key key2 = stoi(row[1]);
-      std::cout << "C.1 " << key1 <<" "<< key2  << std::endl;
+      // std::cout << "C.1 " << key1 <<" "<< key2  << std::endl;
     
     Pose2 k1 = initial2->at<Pose2>(key1);
     Pose2 k2 = initial2->at<Pose2>(key2);
-      std::cout << "C.2" << std::endl;
+      // std::cout << "C.2" << std::endl;
     
     double delta_x = k1.x() - k2.x();
     double delta_y = k1.y() - k2.y();
     double range3 = (sqrt(pow(delta_x,2) + pow(delta_y,2))); 
-      std::cout << "C.3" << std::endl;
+      // std::cout << "C.3" << std::endl;
     
     //double x = k2.x();
     //double y = k2.y();
  
-      std::cout << "C.4" << std::endl;
+      // std::cout << "C.4" << std::endl;
     if (range3 >= commdist) {
     
-      std::cout << "C.5" << std::endl;
+      // std::cout << "C.5" << std::endl;
     	graph2->add(RangeFactor<Pose2, Pose2>(key1,key2, commdist, LCmodel));
-      std::cout << "C.6" << std::endl;
+      // std::cout << "C.6" << std::endl;
     }
 
     row.clear();
-      std::cout << "C.7" << std::endl;
+      // std::cout << "C.7" << std::endl;
   }
   
-      std::cout << "D" << std::endl;
+      // std::cout << "D" << std::endl;
 
  
   GaussNewtonParams params;
@@ -324,9 +327,9 @@ std::cout << "A" << std::endl;
   std::cout << "Optimization complete" << std::endl;
 
   
-
-  result1.print("result");
-  result2.print("result");
+  //! LIN:
+  // result1.print("result");
+  // result2.print("result");
   
   const string outputFile1 = Out1;
   const string outputFile2 = Out2;

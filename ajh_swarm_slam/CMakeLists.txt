@@ -19,7 +19,15 @@ find_package(catkin REQUIRED COMPONENTS
 ###### GTSAM STUFF STARTS HERE
 
 # Include GTSAM CMake tools
+# find_package(GTSAMCMakeTools)
+set(GTSAMCMakeTools_DIR /home/lin/develop/3rd/gtsam/install/lib/cmake/GTSAMCMakeTools/)
 find_package(GTSAMCMakeTools)
+if(GTSAMCMakeTools_FOUND)  
+  message(STATUS "Found GTSAMCMakeTools ${GTSAMCMakeTools_VERSION}")
+else()
+  message(STATUS "GTSAMCMakeTools Not Found")
+endif()
+
 #include(GtsamBuildTypes) # Load build type flags and default to Debug mode
 #include(GtsamTesting)    # Easy functions for creating unit tests and scripts
 #include(GtsamMatlabWrap) # Automatic MATLAB wrapper generation
@@ -29,7 +37,17 @@ find_package(GTSAMCMakeTools)
 
 ###################################################################################
 # Find GTSAM components
-find_package(GTSAM REQUIRED) # Uses installed package
+# find_package(GTSAM REQUIRED) # Uses installed package
+
+### GTSAM 
+set(GTSAM_DIR /home/lin/develop/3rd/gtsam/install/lib/cmake/GTSAM)
+find_package(GTSAM)
+if(GTSAM_FOUND)  
+  message(STATUS "Found GTSAM ${GTSAM_VERSION}")
+else()
+  message(STATUS "GTSAM Not Found")
+endif()
+
 include_directories(${GTSAM_INCLUDE_DIR})
 
 ###################################################################################
@@ -179,6 +197,8 @@ add_executable(DR_2botsEXP src/DR_PGO_2botsEXP.cpp)
 
 
 
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -201,8 +221,33 @@ target_link_libraries(DR_2botsEXP gtsam)
 target_link_libraries(RCS_2botsEXP gtsam)
 
 
+###########################
+# Test
+###########################
+add_executable(test_gtsam_odom test/gtsam_odom.cpp)
+target_link_libraries(test_gtsam_odom gtsam)
 
- 
+add_executable(test_range test/DR_range.cpp)
+target_link_libraries(test_range gtsam)
+
+add_executable(test_comm test/RCS_comm.cpp)
+target_link_libraries(test_comm gtsam)
+
+add_executable(test_new_comm test/RCS_new_comm.cpp)
+target_link_libraries(test_new_comm gtsam gtsam_unstable)
+
+add_executable(test_new_onehop test/RCS_new_onehop.cpp)
+target_link_libraries(test_new_onehop gtsam gtsam_unstable)
+
+add_executable(test_onehop test/RCS_onehop.cpp)
+target_link_libraries(test_onehop gtsam gtsam_unstable)
+
+add_executable(test_new_onehop_sim test/RCS_new_onehop_sim.cpp)
+target_link_libraries(test_new_onehop_sim gtsam gtsam_unstable)
+
+add_executable(test_onehop_sim test/RCS_onehop_sim.cpp)
+target_link_libraries(test_onehop_sim gtsam gtsam_unstable)
+
 #target_link_libraries(CentGraphIneq10 gtsam) 
  
 #target_link_libraries(CentGraphIneq20 gtsam) 
