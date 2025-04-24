@@ -28,6 +28,8 @@ else()
   message(STATUS "GTSAMCMakeTools Not Found")
 endif()
 
+find_package(yaml-cpp REQUIRED)
+
 #include(GtsamBuildTypes) # Load build type flags and default to Debug mode
 #include(GtsamTesting)    # Easy functions for creating unit tests and scripts
 #include(GtsamMatlabWrap) # Automatic MATLAB wrapper generation
@@ -247,6 +249,10 @@ target_link_libraries(test_new_onehop_sim gtsam gtsam_unstable)
 
 add_executable(test_onehop_sim test/RCS_onehop_sim.cpp)
 target_link_libraries(test_onehop_sim gtsam gtsam_unstable)
+
+add_executable(test_rcs_all test/RCS_all.cpp)
+target_link_libraries(test_rcs_all gtsam gtsam_unstable yaml-cpp)
+
 
 #target_link_libraries(CentGraphIneq10 gtsam) 
  

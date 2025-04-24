@@ -1,0 +1,29 @@
+
+odom:
+  - /home/lin/develop/data/swarm/sim/odom/Robot1_filtered.csv
+  - /home/lin/develop/data/swarm/sim/odom/Robot2_filtered.csv
+  - /home/lin/develop/data/swarm/sim/odom/Robot3_filtered.csv
+
+graph: /home/lin/develop/data/swarm/sim/cppgraph.csv
+
+use_graph: False
+
+comm: /home/lin/develop/data/swarm/sim/cppcomm.csv
+
+onehop: /home/lin/develop/data/swarm/sim/hopgraph.csv
+
+odom_noise: [0.01, 0.3, 0.005]
+range_noise: 0.1
+
+new_comm_noise: 0.3
+old_comm_noise: 0.3
+
+new_onehop_noise: 0.3
+old_onehop_noise: 0.3
+use_onehop: True
+
+new_est: /home/lin/develop/data/swarm/sim/new_est/
+
+old_est: /home/lin/develop/data/swarm/sim/old_est/
+
+range_est: /home/lin/develop/data/swarm/sim/range_est/

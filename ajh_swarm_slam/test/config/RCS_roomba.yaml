@@ -1,0 +1,58 @@
+
+# ================================================================= #
+# For factor graph
+# ================================================================= #
+odom:
+  - /home/lin/develop/data/swarm/roomba/odom/Robot1_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot2_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot3_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot4_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot5_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot6_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot7_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot8_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot9_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot10_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot11_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot12_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot13_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot14_filtered.csv
+  - /home/lin/develop/data/swarm/roomba/odom/Robot15_filtered.csv
+
+graph: /home/lin/develop/data/swarm/roomba/cppgraph.csv
+
+use_graph: True
+
+# ================================================================= #
+# For comm factor
+# ================================================================= #
+
+comm: /home/lin/develop/data/swarm/roomba/cppcomm.csv
+
+onehop: /home/lin/develop/data/swarm/roomba/hopgraph.csv
+
+# ================================================================= #
+# For noise model
+# ================================================================= #
+prior_noise: [0.001, 0.001, 0.005]
+odom_noise: [0.1, 0.1, 0.3]
+range_noise: 0.1
+
+# New direct comm factor: 0.3:failed, 0.4:ok, 0.5: ok
+# Old direct comm factor: 0.3:ok
+new_comm_noise: 0.3
+old_comm_noise: 0.3
+
+new_onehop_noise: 0.3
+old_onehop_noise: 0.3
+use_onehop: True
+
+# ================================================================= #
+# For saved data
+# ================================================================= #
+
+new_est: /home/lin/develop/data/swarm/roomba/new_est/
+
+old_est: /home/lin/develop/data/swarm/roomba/old_est/
+
+range_est: /home/lin/develop/data/swarm/roomba/range_est/

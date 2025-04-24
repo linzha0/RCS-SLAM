@@ -9,7 +9,6 @@
 #include <gtsam/nonlinear/GaussNewtonOptimizer.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/nonlinear/Marginals.h>
-
 #include <gtsam_unstable/slam/DirectCommFactor.h>
 #include <gtsam_unstable/slam/OneHopFactor.h>
 

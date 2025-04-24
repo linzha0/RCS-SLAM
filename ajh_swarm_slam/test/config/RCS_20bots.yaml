@@ -1,0 +1,46 @@
+# ================================================================= #
+# For factor graph
+# ================================================================= #
+odom:
+  # - /home/lin/develop/data/swarm/20bots/odom/Robot1_filtered.csv
+  # - /home/lin/develop/data/swarm/20bots/odom/Robot2_filtered.csv
+  # - /home/lin/develop/data/swarm/20bots/odom/Robot3_filtered.csv
+
+graph: /home/lin/develop/data/swarm/20bots/cppgraph.csv
+
+use_graph: True
+
+# ================================================================= #
+# For comm factor
+# ================================================================= #
+
+comm: /home/lin/develop/data/swarm/20bots/cppcomm.csv
+
+onehop: /home/lin/develop/data/swarm/20bots/hopgraph.csv
+
+# ================================================================= #
+# For noise model
+# ================================================================= #
+
+prior_noise: [0.001, 0.001, 0.005]
+
+# ?
+odom_noise: [0.05, 0.05, 0.01]
+range_noise: 0.1
+
+new_comm_noise: 0.4
+old_comm_noise: 0.4
+
+new_onehop_noise: 0.4
+old_onehop_noise: 0.4
+use_onehop: True
+
+# ================================================================= #
+# For saved data
+# ================================================================= #
+
+new_est: /home/lin/develop/data/swarm/20bots/new_est/
+
+old_est: /home/lin/develop/data/swarm/20bots/old_est/
+
+range_est: /home/lin/develop/data/swarm/20bots/range_est/
